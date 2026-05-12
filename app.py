@@ -19,28 +19,35 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 os.environ.setdefault("MKL_NUM_THREADS", "1")
 
+import streamlit as st
+
 try:
     import matplotlib
     matplotlib.use("Agg")
 except ImportError as exc:
-    raise ImportError(
+    st.set_page_config(page_title="ManufactureGuard", page_icon="🔬",
+                       layout="wide", initial_sidebar_state="expanded")
+    st.error(
         "Required dependency 'matplotlib' is missing. "
         "Install dependencies with 'pip install -r requirements.txt'."
-    ) from exc
+    )
+    st.stop()
 
 try:
     import cv2
 except ImportError as exc:
-    raise ImportError(
+    st.set_page_config(page_title="ManufactureGuard", page_icon="🔬",
+                       layout="wide", initial_sidebar_state="expanded")
+    st.error(
         "Required dependency 'opencv-python-headless' is missing. "
         "Install dependencies with 'pip install -r requirements.txt'."
-    ) from exc
+    )
+    st.stop()
 
 import joblib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import streamlit as st
 from sklearn.metrics import (
     accuracy_score, classification_report, confusion_matrix,
     f1_score, precision_score, recall_score, roc_auc_score,

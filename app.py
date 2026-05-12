@@ -21,18 +21,21 @@ os.environ.setdefault("MKL_NUM_THREADS", "1")
 
 try:
     import matplotlib
-except ImportError:
-    import subprocess, sys
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
-    import matplotlib
+    matplotlib.use("Agg")
+except ImportError as exc:
+    raise ImportError(
+        "Required dependency 'matplotlib' is missing. "
+        "Install dependencies with 'pip install -r requirements.txt'."
+    ) from exc
 
-matplotlib.use("Agg")
 try:
     import cv2
-except ImportError:
-    import subprocess, sys
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
-    import cv2
+except ImportError as exc:
+    raise ImportError(
+        "Required dependency 'opencv-python-headless' is missing. "
+        "Install dependencies with 'pip install -r requirements.txt'."
+    ) from exc
+
 import joblib
 import matplotlib.pyplot as plt
 import numpy as np

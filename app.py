@@ -89,13 +89,24 @@ def load_artifacts() -> Dict:
     ] if not Path(p).exists()]
     if missing:
         return {"error": f"Missing: {', '.join(missing)}. Run `python train.py` first."}
-    return dict(
-        svm=joblib.load(SVM_MODEL_PATH), rf=joblib.load(RF_MODEL_PATH),
-        gb=joblib.load(GB_MODEL_PATH),   scaler=joblib.load(SCALER_PATH),
-        selector=joblib.load(SELECTOR_PATH),
-        feature_names=joblib.load(FEATURE_NAMES_PATH),
-        label_map=joblib.load(LABEL_MAP_PATH),
-    )
+
+    try:
+        return dict(
+            svm=joblib.load(SVM_MODEL_PATH), rf=joblib.load(RF_MODEL_PATH),
+            gb=joblib.load(GB_MODEL_PATH),   scaler=joblib.load(SCALER_PATH),
+            selector=joblib.load(SELECTOR_PATH),
+            feature_names=joblib.load(FEATURE_NAMES_PATH),
+            label_map=joblib.load(LABEL_MAP_PATH),
+        )
+    except Exception as exc:
+        return {
+            "error": (
+                "Unable to load saved model artifacts. "
+                "This often means the artifacts were created with an incompatible NumPy or scikit-learn version. "
+                "Recreate the models using `python train.py` and ensure `requirements.txt` is installed. "
+                f"Details: {exc}"
+            )
+        }
 
 # ── Preprocessing ────────────────────────────────────────────────
 def preprocess_image(img_array: np.ndarray, scaler, selector) -> np.ndarray:

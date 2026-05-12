@@ -167,4 +167,8 @@ manufacturing_defect_detection/
 | Random Forest | ~0.99 | ~0.98 | ~0.98 |
 | Gradient Boosting | ~0.99 | ~0.97 | ~0.97 |
 
+## Deployment Link
+https://manufactureguard.streamlit.app/
+
+
 > *Results vary by train/val/test split seed. All six NEU classes are inherently defective, so this is a multi-class → binary mapping problem where all samples should ideally be classified as defective.*

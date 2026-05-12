@@ -2,7 +2,7 @@ numpy==2.4.4
 pandas==3.0.3
 scikit-learn==1.8.0
 scikit-image==0.26.0
-opencv-python-headless==4.9.0.80
+opencv-python-headless==4.13.0.92
 matplotlib==3.10.9
 joblib==1.5.3
 streamlit==1.57.0
